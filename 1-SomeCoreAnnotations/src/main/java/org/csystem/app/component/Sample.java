@@ -1,9 +1,11 @@
 package org.csystem.app.component;
 
 import jakarta.annotation.PostConstruct;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 @Component("emin")
+@Lazy
 public class Sample {
     public Sample()
     {
@@ -17,3 +19,4 @@ public class Sample {
     }
 }
 // buradaki foo metodu Sample nesnesi yaratıldıktan sonra çağrılacak
+// Lazy olduğu için ben istemeden yaratılmayacak
