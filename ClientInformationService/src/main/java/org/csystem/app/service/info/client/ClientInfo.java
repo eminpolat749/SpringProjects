@@ -7,7 +7,6 @@ public class ClientInfo {
     private final String m_host;
     private final int m_port;
     private final int m_localPort;
-
     private final LocalDateTime m_requestDateTime;
 
 
