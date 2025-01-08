@@ -17,6 +17,19 @@ public class Payment {
     @Column(name = "unit_price", nullable = false)
     public BigDecimal unitPrice;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "username", nullable = false)
     public Customer customer;
+
+    @Override
+    public int hashCode()
+    {
+        return Long.hashCode(id);
+    }
+
+    @Override
+    public boolean equals(Object other)
+    {
+        return other instanceof Payment p && id == p.id;
+    }
 }

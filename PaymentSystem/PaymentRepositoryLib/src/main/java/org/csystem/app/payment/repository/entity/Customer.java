@@ -17,6 +17,17 @@ public class Customer {
 
     public boolean active;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer", cascade = CascadeType.ALL)
     public Set<Payment> payments;
+
+    @Override
+    public int hashCode()
+    {
+        return username.hashCode();
+    }
+    @Override
+    public boolean equals(Object other)
+    {
+        return other instanceof Customer c && username.equals(c.username);
+    }
 }
