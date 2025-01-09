@@ -3,6 +3,7 @@ package org.csystem.app.payment.repository.entity;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "payments")
@@ -16,6 +17,9 @@ public class Payment {
 
     @Column(name = "unit_price", nullable = false)
     public BigDecimal unitPrice;
+
+    @Column(name = "date_time", nullable = false)
+    public LocalDateTime dateTime = LocalDateTime.now();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "username", nullable = false)
