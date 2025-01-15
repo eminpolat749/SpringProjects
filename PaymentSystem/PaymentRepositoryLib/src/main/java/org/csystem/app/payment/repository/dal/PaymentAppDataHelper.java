@@ -12,12 +12,22 @@ import java.util.Optional;
 @Component
 public class PaymentAppDataHelper {
     private final ICustomerRepository m_customerRepository;
-    private  final IPaymentRepository m_paymentRepository;
+    private final IPaymentRepository m_paymentRepository;
 
-    public PaymentAppDataHelper(ICustomerRepository customerRepository, IPaymentRepository paymentRepository) // ctor injection
+    public PaymentAppDataHelper(ICustomerRepository customerRepository, IPaymentRepository paymentRepository)
     {
         m_customerRepository = customerRepository;
         m_paymentRepository = paymentRepository;
+    }
+
+    public Customer saveCustomer(Customer customer)
+    {
+        try {
+            return m_customerRepository.save(customer);
+        }
+        catch (Throwable ex) {
+            throw new RepositoryException("PaymentAppDataHelper.saveCustomer", ex);
+        }
     }
 
     public Payment savePayment(Payment payment)
@@ -29,13 +39,24 @@ public class PaymentAppDataHelper {
             throw new RepositoryException("PaymentAppDataHelper.savePayment", ex);
         }
     }
-    public Customer saveCustomer(Customer customer)
+
+    public boolean existsUserByUsername(String username)
     {
         try {
-            return m_customerRepository.save(customer);
+            return m_customerRepository.existsById(username);
         }
         catch (Throwable ex) {
-            throw new RepositoryException("PaymentAppDataHelper.savePayment", ex);
+            throw new RepositoryException("PaymentAppDataHelper.existsUserByUsername", ex);
+        }
+    }
+
+    public boolean existsUserByUsernameAndActive(String username, boolean active)
+    {
+        try {
+            return m_customerRepository.existsByUsernameAndActive(username, active);
+        }
+        catch (Throwable ex) {
+            throw new RepositoryException("PaymentAppDataHelper.existsUserByUsernameAndActive", ex);
         }
     }
 
@@ -57,10 +78,5 @@ public class PaymentAppDataHelper {
         catch (Throwable ex) {
             throw new RepositoryException("PaymentAppDataHelper.findCustomerByUsername", ex);
         }
-    }
-
-    public Optional<Customer> findActiveCustomerByUsername(String username, boolean active)
-    {
-        throw  new UnsupportedOperationException("Not implemented yet");
     }
 }

@@ -3,6 +3,7 @@ package org.csystem.app.payment.repository.entity;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -10,10 +11,12 @@ import java.util.Set;
 public class Customer {
     @Id
     public String username;
+
     @Column(nullable = false, length = 512)
     public String name;
+
     @Column(name = "register_date", nullable = false)
-    public LocalDate registerDate;
+    public LocalDate registerDate = LocalDate.now();
 
     public boolean active;
 
@@ -25,6 +28,7 @@ public class Customer {
     {
         return username.hashCode();
     }
+
     @Override
     public boolean equals(Object other)
     {
